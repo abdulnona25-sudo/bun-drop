@@ -1,39 +1,25 @@
-/* ================= DARK MODE SYSTEM ================= */
 #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* DEFAULT = LIGHT MODE */
-
 body {
   background: #ffffff;
   color: #111;
   margin: 0;
-  animation: pageFade 0.6s ease; /* ✅ ADDED */
 }
 
-/* DARK MODE ACTIVE */
 body.dark {
   background: #0f0f0f;
   color: #f5deb3;
 }
 
-/* ================= GLOBAL ENHANCEMENT ================= */
-html {
-  scroll-behavior: smooth; /* ✅ ADDED */
-}
-
-/* NAVBAR */ 
 
 .logo {
   background: black;
   padding: 6px;
   border-radius: 28px;
-  width: 40px;              /* ✅ MERGED */
-  height: 40px;             /* ✅ MERGED */
-  object-fit: cover;        /* ✅ MERGED */
 }
 
 body.dark .navbar {
@@ -45,7 +31,6 @@ body:not(.dark) .navbar {
   border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
-/* TABS */
 body:not(.dark) .tabs {
   background: #eee;
 }
@@ -54,12 +39,10 @@ body:not(.dark) .tab-item a {
   color: black;
 }
 
-/* ✅ FIXED DARK MODE TEXT */
 body.dark .tab-item a {
-  color: #f5deb3;
+  color: #000000;
 }
 
-/* FOOD CARDS */
 body:not(.dark) .food-card {
   background: #fff;
   color: black;
@@ -69,13 +52,11 @@ body.dark .food-card {
   background: #111;
 }
 
-/* CARD */
 body:not(.dark) .card {
   background: #f9f9f9;
   color: black;
 }
 
-/* MOBILE MENU */
 
 body:not(.dark) .mobile-menu {
   background: white;
@@ -86,27 +67,24 @@ body:not(.dark) .mobile-menu a {
   color: black;
 }
 
-/* Light mode mobile menu hover */
 body:not(.dark) .mobile-menu a:hover {
   color: #d4ac0f;
+
 }
 
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 3%;
-  background: inherit; /* ✅ CLEAN FIX */
+  background: black;
   border-bottom: 1px solid rgba(255,255,255,0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
-  animation: navSlide 0.5s ease; /* ✅ ADDED */
 }
-
-/* LEFT SIDE */
 
 .navbar-left {
   display: flex;
@@ -118,15 +96,19 @@ body:not(.dark) .mobile-menu a:hover {
   font-size: 20px;
   font-weight: 700;
   padding-right: 10px;
+  
 }
 
-/* DESKTOP MENU */
+.logo {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
 
 .desktop-menu {
   display: flex;
 }
 
-/* TABS */
 .tabs {
   list-style: none;
   position: relative;
@@ -137,13 +119,12 @@ body:not(.dark) .mobile-menu a:hover {
   margin: 0;
 }
 
-/* TAB ITEM */
 .tab-item {
   position: relative;
   z-index: 2;
+  
 }
 
-/* LINK */
 .tab-link {
   display: block;
   padding: 10px 20px;
@@ -153,9 +134,9 @@ body:not(.dark) .mobile-menu a:hover {
   text-decoration: none;
   border-radius: 999px;
   transition: 0.2s;
+
 }
 
-/* HOVER */
 .tab-link:hover {
   background: #facc15;
   color: black;
@@ -164,8 +145,6 @@ body:not(.dark) .mobile-menu a:hover {
 .cursor {
   display: none;
 }
-
-/* HAMBURGER */
 
 .hamburger {
   display: none;
@@ -186,8 +165,6 @@ body:not(.dark) .mobile-menu a:hover {
   font-weight: bold;
 }
 
-/* MOBILE MENU */
-
 .mobile-menu {
   position: absolute;
   top: 70px;
@@ -199,7 +176,9 @@ body:not(.dark) .mobile-menu a:hover {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  animation: menuDrop 0.3s ease forwards; /* ✅ IMPROVED */
+  transform: translateY(-10px);
+  opacity: 0;
+  animation: menuDrop 0.3s ease forwards;
 }
 
 .mobile-menu a {
@@ -213,7 +192,7 @@ body:not(.dark) .mobile-menu a:hover {
   color: #facc15;
 }
 
-/* ================= HERO ================= */
+/* HOME */
 
 .hero {
   padding: 100px 8%;
@@ -247,7 +226,7 @@ body:not(.dark) .mobile-menu a:hover {
   background: #fde047;
 }
 
-/* ================= FOOD GRID ================= */
+/* FOOD GRID*/
 
 .food-grid {
   display: grid;
@@ -258,37 +237,29 @@ body:not(.dark) .mobile-menu a:hover {
 
 .food-card {
   background: #111;
-  display: flex;
-  flex-direction: column;
+  display: flex;          
+  flex-direction: column; 
   border-radius: 15px;
   overflow: hidden;
   transition: 0.3s;
   border: 1px solid rgba(255,255,255,0.05);
-
-  /* ✅ ADDED ANIMATION */
-  opacity: 0;
-  transform: translateY(20px);
-  animation: cardReveal 0.6s ease forwards;
 }
-
-.food-card:nth-child(2) { animation-delay: 0.1s; }
-.food-card:nth-child(3) { animation-delay: 0.2s; }
-.food-card:nth-child(4) { animation-delay: 0.3s; }
 
 .food-card:hover {
   transform: translateY(-8px) scale(1.02);
 }
 
+
 .food-card img {
   width: 100%;
-  height: 200px;
-  object-fit: cover; /* ✅ FIXED */
+  height: 200px;        
+  object-fit: contain;   /*THIS is the key */
   display: block;
-  transition: transform 0.4s ease; /* ✅ ADDED */
+  transition: transform 0.4s ease;
 }
 
 .food-card:hover img {
-  transform: scale(1.1); /* ✅ ADDED */
+  transform: scale(1.1);
 }
 
 .food-card-content {
@@ -318,8 +289,7 @@ body:not(.dark) .mobile-menu a:hover {
   font-weight: bold;
 }
 
-/* ================= BUTTON ================= */
-
+/*  BUTTON  */
 .container {
   padding: 40px 8%;
 }
@@ -339,10 +309,9 @@ body:not(.dark) .mobile-menu a:hover {
 .btn:hover {
   transform: translateY(-3px) scale(1.05);
   background: #fff;
-  box-shadow: 0 0 15px rgba(250, 204, 21, 0.6); /* ✅ ADDED */
+  box-shadow: 0 0 15px rgba(250, 204, 21, 0.6);
 }
 
-/* CARDS */
 .card {
   background: #1a1a1a;
   border-radius: 15px;
@@ -355,7 +324,6 @@ body:not(.dark) .mobile-menu a:hover {
   transform: translateY(-8px);
 }
 
-/* GRID */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -365,8 +333,6 @@ body:not(.dark) .mobile-menu a:hover {
 .fade-in {
   animation: fadeIn 0.8s ease;
 }
-
-/* ================= FOOTER ================= */
 
 .footer {
   background: black;
@@ -385,6 +351,8 @@ body:not(.dark) .footer {
   border-top: 1px solid rgba(0,0,0,0.1);
 }
 
+
+
 .footer-content {
   display: flex;
   justify-content: space-between;
@@ -400,6 +368,10 @@ body:not(.dark) .footer {
 .footer-brand p {
   color: #aaa;
   font-size: 16px;
+}
+
+body.dark .footer-brand p {
+  color: #aaa;
 }
 
 .footer-socials {
@@ -428,11 +400,27 @@ body:not(.dark) .footer .social-btn {
   border: 1px solid rgb(0, 0, 0);
 }
 
+body.dark .social-btn {
+  background: #111;
+  color: #f5deb3;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.social-btn svg {
+  font-size: 18px;
+}
+
 .social-btn:hover {
   background: #facc15;
   color: black;
   transform: translateY(-3px) scale(1.05);
 }
+
+.footer-contact p {
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
 
 .footer-bottom {
   text-align: center;
@@ -441,41 +429,26 @@ body:not(.dark) .footer .social-btn {
   color: #777;
 }
 
-/* ================= ANIMATIONS ================= */
+body.dark .footer-bottom {
+  color: #aaa;
+}
+/*  ANIMATIONS  */
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ✅ NEW */
-@keyframes pageFade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes navSlide {
-  from { transform: translateY(-100%); }
-  to { transform: translateY(0); }
-}
-
-@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes menuDrop {
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* ================= RESPONSIVE ================= */
+/*  RESPONSIVE  */
 
 @media (max-width: 768px) {
+  
 
   .desktop-menu {
     display: none;
@@ -494,6 +467,14 @@ body:not(.dark) .footer .social-btn {
   }
 
   .food-card img {
-    height: 180px;
+  height: 180px;
+}
+
+}
+
+@keyframes menuDrop {
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }

@@ -58,7 +58,7 @@ export default function Menu() {
   const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
-    // Load favourites only once from localStorage
+   
     const user = localStorage.getItem("user");
     const saved = user
       ? JSON.parse(localStorage.getItem(`favourites_${user}`)) || []
@@ -73,7 +73,7 @@ export default function Menu() {
     JSON.parse(localStorage.getItem("cart")) || []
   );
 
-  // 2️⃣ Save favourites to localStorage whenever it changes
+  
 
   function toggleFavourite(item) {
     const exists = favourites.find(f => f.id === item.id);
@@ -94,7 +94,7 @@ export default function Menu() {
       localStorage.setItem("favourites_guest", JSON.stringify(updated));
     }
 
-    window.dispatchEvent(new Event("storage")); // <-- ensures Favourites page updates
+    window.dispatchEvent(new Event("storage")); 
   }
 
   function addToCart(item) {

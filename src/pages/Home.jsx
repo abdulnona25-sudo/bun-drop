@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
 
-      {/* 🔥 HERO */}
+   
       <section className="hero fade-in">
         <h1>Fresh Burgers. Fast Delivery.</h1>
         <p>Order your favourite meals in seconds.</p>
@@ -15,7 +15,7 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* 🔥 POPULAR FOOD */}
+     
       <section className="fade-in">
         <h2 style={{ textAlign: "center", marginTop: "40px" }}>
           Popular Meals 🔥
@@ -62,7 +62,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 🔥 ORDER OPTIONS */}
+ 
       <section className="fade-in" style={{ textAlign: "center", padding: "60px 20px" }}>
         <h2>Order Your Way</h2>
         <p style={{ color: "#aaa", marginBottom: "20px" }}>
@@ -71,7 +71,7 @@ export default function Home() {
 
         <div style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap" }}>
 
-          {/* PUT REAL LINKS HERE LATER */}
+         
           <a href="https://www.ubereats.com/gb/store/bun-drop/UaASnld3SSOAY3bu7HRkQQ?diningMode=DELIVERY&ps=1&sc=SEARCH_SUGGESTION" className="btn">Uber Eats 🚀</a>
           <a href="https://www.just-eat.co.uk/restaurants-bun-drop-whiteinch/menu" className="btn">Just Eat 🛵</a>
           <a href="tel:01413783463" className="btn">Call 📞</a>
@@ -79,7 +79,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 🔥 REVIEWS */}
+  
       <section className="fade-in" style={{ padding: "60px 8%" }}>
         <h2 style={{ textAlign: "center" }}>Customer Reviews ⭐</h2>
 

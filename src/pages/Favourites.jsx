@@ -4,7 +4,7 @@ export default function Favourites() {
 
   const [favourites, setFavourites] = useState([]);
 
-  // LOAD FAVOURITES
+  
       useEffect(() => {
         function loadFavs() {
           const user = localStorage.getItem("user");
@@ -15,14 +15,14 @@ export default function Favourites() {
           setFavourites(saved);
         }
 
-        loadFavs(); // load initially
+        loadFavs();
 
-        window.addEventListener("storage", loadFavs); // listen for changes
+        window.addEventListener("storage", loadFavs); 
 
         return () => window.removeEventListener("storage", loadFavs);
       }, []);
 
-  // REMOVE FROM FAVOURITES
+ 
     function removeFavourite(id) {
       const updated = favourites.filter(item => item.id !== id);
 

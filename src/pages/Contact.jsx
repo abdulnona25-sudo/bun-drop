@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Contact() {
 
-  // simple open/closed logic
+  
   const hour = new Date().getHours();
   const isOpen = hour >= 11 && hour <= 23;
 
@@ -13,7 +13,7 @@ export default function Contact() {
 
 
 
-      {/* PHONE */}
+    
       <div style={{ marginBottom: "30px" }}>
         <h3>Call Us</h3>
         <a href="tel:01413783463" className="btn">
@@ -21,13 +21,13 @@ export default function Contact() {
         </a>
       </div>
 
-      {/* ADDRESS */}
+     
       <div style={{ marginBottom: "30px" }}>
         <h3>Location</h3>
         <p>2017 Dumbarton Rd, Glasgow G14 0HY</p>
       </div>
 
-      {/* MAP */}
+     
       <div style={{ marginBottom: "30px" }}>
         <iframe
           title="map"
@@ -41,7 +41,7 @@ export default function Contact() {
         ></iframe>
       </div>
 
-      {/* HOURS */}
+    
       <div style={{ marginTop: "30px" }}>
         <h3>Opening Hours</h3>
         <p>Monday - Thursday: 12:00 PM – 11:00 PM</p>

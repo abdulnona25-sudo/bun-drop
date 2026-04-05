@@ -4,13 +4,13 @@ export default function Cart() {
 
   const [cart, setCart] = useState([]);
 
-  // LOAD CART
+  
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(savedCart);
   }, []);
 
-  // 💾 SAVE LAST ORDER
+  
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (user && cart.length > 0) {
@@ -18,7 +18,7 @@ export default function Cart() {
     }
   }, [cart]);
 
-  // REMOVE ITEM
+ 
 function removeItem(index) {
   const newCart = [...cart];
 
@@ -33,11 +33,11 @@ function removeItem(index) {
   window.dispatchEvent(new Event("storage"));
 }
 
-  // CLEAR CART
+ 
   function clearCart() {
     localStorage.removeItem("cart");
     setCart([]);
-    window.dispatchEvent(new Event("storage")); // ✅ ADD THIS
+    window.dispatchEvent(new Event("storage")); 
   }
 
   // CALCULATE TOTAL
@@ -60,7 +60,7 @@ function removeItem(index) {
         </h2>
       ) : (
         <>
-          {/* ITEMS */}
+     
           <div className="food-grid">
 
             {cart.map((item, index) => (
@@ -71,7 +71,7 @@ function removeItem(index) {
                   <h3>{item.name} x{item.quantity || 1}</h3>
                   <span>£{(item.price * (item.quantity || 1)).toFixed(2)}</span>
 
-                  {/* 🍔 CUSTOMIZATION DISPLAY */}
+                
                   {item.cheese !== undefined && (
                     <>
                       <p>🧀 Cheese: {item.cheese ? "Yes" : "No"}</p>
@@ -93,7 +93,7 @@ function removeItem(index) {
 
           </div>
 
-          {/* TOTAL */}
+         
           <div style={{
             maxWidth: "400px",
             margin: "40px auto",

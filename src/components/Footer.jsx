@@ -7,17 +7,18 @@ export default function Footer() {
 
       <div className="footer-content">
 
-        {/* LEFT */}
+    
         <div className="footer-brand">
           <h2>Bun Drop</h2>
           <p>Fresh burgers. Fast delivery.</p>
         </div>
 
-        {/* SOCIALS */}
+
         <div className="footer-socials">
           
           <a 
-            href="https://www.instagram.com/bun_drop_glasgow/"             target="_blank" 
+            href="https://www.instagram.com/bun_drop_glasgow/"             
+            target="_blank" 
             rel="noreferrer"
             className="social-btn"
           >
@@ -37,7 +38,7 @@ export default function Footer() {
 
         </div>
 
-        {/* CONTACT */}
+    
         <div className="footer-contact">
           <p>📍 2017 Dumbarton Road, Glasgow, Scotland G14 0HY</p>
           <p>📞 01413783463</p>
@@ -45,7 +46,7 @@ export default function Footer() {
 
       </div>
 
-      {/* BOTTOM */}
+      
       <div className="footer-bottom">
         © {new Date().getFullYear()} Bun Drop. All rights reserved.
       </div>

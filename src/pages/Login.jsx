@@ -6,7 +6,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
-  // LOAD USER
+  
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     if (savedUser) {
@@ -14,7 +14,7 @@ export default function Login() {
     }
   }, []);
 
-  // LOGIN
+ 
   function handleLogin(e) {
     e.preventDefault();
 
@@ -25,13 +25,13 @@ export default function Login() {
     const existingUser = users.find(u => u.username === username);
 
     if (existingUser) {
-      // LOGIN
+  
       if (existingUser.password === password) {
         localStorage.setItem("user", username);
         setUser(username);
         window.dispatchEvent(new Event("storage"));
 
-        // 🔹 MERGE GUEST FAVOURITES
+       
         const guestFavs = JSON.parse(localStorage.getItem("favourites_guest")) || [];
         const userFavs = JSON.parse(localStorage.getItem(`favourites_${username}`)) || [];
         const mergedFavs = [...userFavs];
@@ -44,7 +44,7 @@ export default function Login() {
         alert("Wrong password");
       }
     } else {
-      // SIGN UP (auto create account)
+      
       const newUser = { username, password };
 
       localStorage.setItem("users", JSON.stringify([...users, newUser]));
@@ -52,7 +52,7 @@ export default function Login() {
       setUser(username);
       window.dispatchEvent(new Event("storage"));
 
-      // 🔹 MERGE GUEST FAVOURITES
+     
       const guestFavs = JSON.parse(localStorage.getItem("favourites_guest")) || [];
       localStorage.setItem(`favourites_${username}`, JSON.stringify(guestFavs));
       localStorage.removeItem("favourites_guest");
@@ -62,14 +62,14 @@ export default function Login() {
     setPassword("");
   }
 
-  // LOGOUT
+  
   function handleLogout() {
     localStorage.removeItem("user");
     setUser(null);
     window.dispatchEvent(new Event("storage"));
   }
 
-  // 💾 LOAD LAST ORDER
+  
   const lastOrder = user
     ? JSON.parse(localStorage.getItem(`lastOrder_${user}`))
     : null;
@@ -91,7 +91,7 @@ export default function Login() {
             Logout
           </button>
 
-          {/* 🔁 LAST ORDER */}
+         
           {lastOrder && (
             <div style={{ marginTop: "30px" }}>
               <h3>Your last order 🔁</h3>

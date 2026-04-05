@@ -17,7 +17,6 @@ export default function Navbar() {
     localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
 
-  // ✅ ADD THIS RIGHT HERE
   useEffect(() => {
 
     function updateCart() {
@@ -39,8 +38,6 @@ export default function Navbar() {
 
   }, []);
 
-
-  // ✅ USER LISTENER (PUT THIS HERE — NOT INSIDE ANY FUNCTION)
   useEffect(() => {
 
     function updateUser() {
@@ -53,7 +50,6 @@ export default function Navbar() {
 
   }, []);
 
-  // 🕒 OPEN HOURS (FIXED TEXT)
   function isOpenNow() {
     const now = new Date();
     const day = now.getDay();
@@ -69,21 +65,21 @@ export default function Navbar() {
   return (
     <nav className="navbar">
 
-      {/* LEFT */}
+   
       <div className="navbar-left">
         <img src="/images/logo.png" alt="logo" className="logo" />
         <h1>Bun Drop</h1>
       </div>
 
-      {/* MENU */}
+ 
       <div className="desktop-menu">
         <SlideTabs cartCount={cartCount} />
       </div>
 
-      {/* RIGHT */}
+     
       <div className="nav-right" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
 
-        {/* ✅ FIXED TEXT (NO DOT) */}
+        
         <span style={{
           fontSize: "13px",
           fontWeight: "bold",
@@ -92,7 +88,7 @@ export default function Navbar() {
           {isOpenNow() ? "Open now" : "Closed"}
         </span>
 
-        {/* DARK MODE */}
+       
         <button
           onClick={() => setDarkMode(!darkMode)}
           className="btn"
@@ -101,7 +97,7 @@ export default function Navbar() {
           {darkMode ? "☀️" : "🌙"}
         </button>
 
-        {/* USER */}
+       
         {user ? (
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <span style={{ fontWeight: "bold" }}>👤 {user}</span>
@@ -123,7 +119,7 @@ export default function Navbar() {
 
       </div>
 
-      {/* MOBILE */}
+      
       <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
         ☰
       </div>
@@ -183,7 +179,8 @@ const Tab = ({ children, setPosition, to }) => {
         });
       }}
     >
-      {/* ✅ FIX: FULL CLICK AREA */}
+
+
       <Link to={to} className="tab-link">
         {children}
       </Link>

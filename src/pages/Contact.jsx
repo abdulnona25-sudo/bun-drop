@@ -31,7 +31,7 @@ export default function Contact() {
       <div style={{ marginBottom: "30px" }}>
         <iframe
           title="map"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2237.803070439413!2d-4.370206023283602!3d55.88343057313286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48884ffdea9cf235%3A0x660376f535097a24!2sBun%20Drop!5e0!3m2!1sen!2suk!4v1775219052054!5m2!1sen!2suk"
+          src="https://www.google.com/maps?q=2017%20Dumbarton%20Road%20Glasgow&output=embed"
           style={{
             width: "100%",
             height: "300px",

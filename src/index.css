@@ -7,6 +7,7 @@
   padding: 0;
 }
 
+/* ── DARK MODE (default) ── */
 :root {
   --brand: #E8321A;
   --brand-dark: #B8250F;
@@ -27,6 +28,31 @@
   --font-display: 'Bebas Neue', sans-serif;
   --font-body: 'DM Sans', sans-serif;
   --transition: 0.2s ease;
+}
+
+/* ── LIGHT MODE ── */
+:root.light-mode {
+  --bg: #F5F3EF;
+  --bg2: #EDEAE5;
+  --bg3: #E4E1DC;
+  --surface: #FFFFFF;
+  --surface2: #F0EDE8;
+  --border: rgba(0,0,0,0.08);
+  --border-hover: rgba(0,0,0,0.16);
+  --text: #1A1A1A;
+  --text-muted: #666660;
+  --text-faint: #999990;
+}
+
+/* ── STICKY FOOTER LAYOUT ── */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-content {
+  flex: 1;
 }
 
 html { scroll-behavior: smooth; }
@@ -55,6 +81,10 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 64px;
+}
+
+:root.light-mode .navbar {
+  background: rgba(245,243,239,0.92);
 }
 
 .navbar-brand {
@@ -110,6 +140,29 @@ body {
   padding: 0 4px;
 }
 
+/* ── THEME TOGGLE BUTTON ── */
+.theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--border-hover);
+  color: var(--text);
+  background: var(--surface2);
+}
+
 /* ── HERO ── */
 .hero {
   min-height: 88vh;
@@ -133,6 +186,10 @@ body {
   background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
   background-size: 40px 40px;
   pointer-events: none;
+}
+
+:root.light-mode .hero::before {
+  background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px);
 }
 
 .hero-tag {
@@ -264,7 +321,11 @@ body {
 .food-card:hover {
   transform: translateY(-4px);
   border-color: var(--border-hover);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+}
+
+:root.light-mode .food-card:hover {
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
 }
 
 .food-card img {
@@ -540,7 +601,7 @@ body {
   margin-top: 8px;
 }
 
-/* ── ORDER OPTIONS (Home & 3rd-party) ── */
+/* ── ORDER OPTIONS ── */
 .order-section {
   padding: 80px 8%;
   text-align: center;
@@ -592,6 +653,7 @@ body {
   background: var(--bg2);
   border-top: 1px solid var(--border);
   padding: 50px 8% 28px;
+  margin-top: auto;
 }
 
 .footer-content {
@@ -641,10 +703,6 @@ body {
   border-color: var(--brand);
   color: var(--text);
   background: var(--brand-glow);
-}
-
-.social-btn svg {
-  font-size: 16px;
 }
 
 .footer-contact p {

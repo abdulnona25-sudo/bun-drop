@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { FaShoppingCart, FaHeart, FaUser, FaBars, FaTimes } from "react-icons/fa";
+import { FaShoppingCart, FaHeart, FaUser, FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
 
 export default function Navbar() {
   const [cartCount, setCartCount] = useState(0);
   const [favCount, setFavCount] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    // Load saved preference, default to dark
+    return localStorage.getItem("theme") !== "light";
+  });
+
+  // Apply theme on mount and change
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.remove("light-mode");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.add("light-mode");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
   useEffect(() => {
     function update() {
@@ -54,16 +69,26 @@ export default function Navbar() {
         </li>
       </ul>
 
+      {/* Theme toggle */}
+      <button
+        className="theme-toggle"
+        onClick={() => setDarkMode(d => !d)}
+        aria-label="Toggle theme"
+        title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+      >
+        {darkMode ? <FaSun /> : <FaMoon />}
+      </button>
+
       {/* Mobile toggle */}
       <button
         onClick={() => setMobileOpen(o => !o)}
         style={{
-          display: "none",
           background: "none",
           border: "none",
           color: "var(--text)",
           fontSize: "20px",
           cursor: "pointer",
+          display: "none",
         }}
         className="mobile-menu-btn"
         aria-label="Toggle menu"
@@ -83,6 +108,7 @@ export default function Navbar() {
           flexDirection: "column",
           gap: "6px",
           borderTop: "1px solid var(--border)",
+          overflowY: "auto",
         }}>
           {[
             { to: "/", label: "Home" },
@@ -111,6 +137,28 @@ export default function Navbar() {
               {label}
             </NavLink>
           ))}
+
+          {/* Theme toggle in mobile drawer */}
+          <button
+            onClick={() => setDarkMode(d => !d)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              color: "var(--text)",
+              fontSize: "16px",
+              fontWeight: "500",
+              padding: "14px 16px",
+              borderRadius: "var(--radius-sm)",
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              cursor: "pointer",
+              marginTop: "8px",
+            }}
+          >
+            {darkMode ? <FaSun /> : <FaMoon />}
+            {darkMode ? "Light Mode" : "Dark Mode"}
+          </button>
         </div>
       )}
 
@@ -118,6 +166,7 @@ export default function Navbar() {
         @media (max-width: 768px) {
           .navbar-links { display: none !important; }
           .mobile-menu-btn { display: block !important; }
+          .theme-toggle { margin-left: 8px; }
         }
       `}</style>
     </nav>

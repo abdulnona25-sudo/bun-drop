@@ -1,199 +1,125 @@
-import React, { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { FaShoppingCart, FaHeart, FaUser, FaBars, FaTimes } from "react-icons/fa";
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   const [cartCount, setCartCount] = useState(0);
-  const [user, setUser] = useState(localStorage.getItem("user"));
-
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("darkMode") === "true"
-  );
+  const [favCount, setFavCount] = useState(0);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    document.body.classList.toggle("dark", darkMode);
-    localStorage.setItem("darkMode", darkMode);
-  }, [darkMode]);
-
-  useEffect(() => {
-
-    function updateCart() {
+    function update() {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-      const total = cart.reduce(
-        (acc, item) => acc + (item.quantity || 1),
-        0
-      );
-
+      const total = cart.reduce((acc, item) => acc + (item.quantity || 1), 0);
       setCartCount(total);
+
+      const user = localStorage.getItem("user");
+      const favs = user
+        ? JSON.parse(localStorage.getItem(`favourites_${user}`)) || []
+        : JSON.parse(localStorage.getItem("favourites_guest")) || [];
+      setFavCount(favs.length);
     }
-
-    updateCart();
-
-    window.addEventListener("storage", updateCart);
-
-    return () => window.removeEventListener("storage", updateCart);
-
+    update();
+    window.addEventListener("storage", update);
+    return () => window.removeEventListener("storage", update);
   }, []);
-
-  useEffect(() => {
-
-    function updateUser() {
-      setUser(localStorage.getItem("user"));
-    }
-
-    window.addEventListener("storage", updateUser);
-
-    return () => window.removeEventListener("storage", updateUser);
-
-  }, []);
-
-  function isOpenNow() {
-    const now = new Date();
-    const day = now.getDay();
-    const hour = now.getHours();
-
-    if (day >= 1 && day <= 4) return hour >= 12 && hour < 23;
-    if (day === 5) return hour >= 15 && hour < 23;
-    if (day === 6 || day === 0) return hour >= 12 && hour < 23;
-
-    return false;
-  }
 
   return (
     <nav className="navbar">
+      <Link to="/" className="navbar-brand">BUN DROP</Link>
 
-   
-      <div className="navbar-left">
-        <img src="/images/logo.png" alt="logo" className="logo" />
-        <h1>Bun Drop</h1>
-      </div>
+      <ul className="navbar-links" style={{ display: mobileOpen ? "none" : "flex" }}>
+        <li><NavLink to="/" end><span>Home</span></NavLink></li>
+        <li><NavLink to="/menu"><span>Menu</span></NavLink></li>
+        <li><NavLink to="/contact"><span>Contact</span></NavLink></li>
+        <li>
+          <NavLink to="/favourites" style={{ position: "relative" }}>
+            <FaHeart />
+            <span>Favourites</span>
+            {favCount > 0 && <span className="navbar-cart-badge">{favCount}</span>}
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/cart" style={{ position: "relative" }}>
+            <FaShoppingCart />
+            <span>Cart</span>
+            {cartCount > 0 && <span className="navbar-cart-badge">{cartCount}</span>}
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/login">
+            <FaUser />
+            <span>Account</span>
+          </NavLink>
+        </li>
+      </ul>
 
- 
-      <div className="desktop-menu">
-        <SlideTabs cartCount={cartCount} />
-      </div>
+      {/* Mobile toggle */}
+      <button
+        onClick={() => setMobileOpen(o => !o)}
+        style={{
+          display: "none",
+          background: "none",
+          border: "none",
+          color: "var(--text)",
+          fontSize: "20px",
+          cursor: "pointer",
+        }}
+        className="mobile-menu-btn"
+        aria-label="Toggle menu"
+      >
+        {mobileOpen ? <FaTimes /> : <FaBars />}
+      </button>
 
-     
-      <div className="nav-right" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-
-        
-        <span style={{
-          fontSize: "13px",
-          fontWeight: "bold",
-          color: isOpenNow() ? "#4ade80" : "#f87171"
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <div style={{
+          position: "fixed",
+          inset: "64px 0 0",
+          background: "var(--bg)",
+          zIndex: 99,
+          padding: "20px 5%",
+          display: "flex",
+          flexDirection: "column",
+          gap: "6px",
+          borderTop: "1px solid var(--border)",
         }}>
-          {isOpenNow() ? "Open now" : "Closed"}
-        </span>
-
-       
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="btn"
-          style={{ padding: "6px 10px" }}
-        >
-          {darkMode ? "☀️" : "🌙"}
-        </button>
-
-       
-        {user ? (
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span style={{ fontWeight: "bold" }}>👤 {user}</span>
-
-            <button
-              className="btn"
-              style={{ padding: "5px 10px", background: "#ff4d4d" }}
-              onClick={() => {
-                localStorage.removeItem("user");
-                window.dispatchEvent(new Event("storage"));
+          {[
+            { to: "/", label: "Home" },
+            { to: "/menu", label: "Menu" },
+            { to: "/contact", label: "Contact" },
+            { to: "/favourites", label: `Favourites${favCount > 0 ? ` (${favCount})` : ""}` },
+            { to: "/cart", label: `Cart${cartCount > 0 ? ` (${cartCount})` : ""}` },
+            { to: "/login", label: "Account" },
+          ].map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              onClick={() => setMobileOpen(false)}
+              style={{
+                display: "block",
+                color: "var(--text)",
+                textDecoration: "none",
+                fontSize: "18px",
+                fontWeight: "500",
+                padding: "14px 16px",
+                borderRadius: "var(--radius-sm)",
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
               }}
             >
-              Sign Out
-            </button>
-          </div>
-        ) : (
-          <Link to="/login" className="login-btn">Login</Link>
-        )}
-
-      </div>
-
-      
-      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-        ☰
-      </div>
-
-      {menuOpen && (
-        <div className="mobile-menu">
-          <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-          <Link to="/menu" onClick={() => setMenuOpen(false)}>Menu</Link>
-          <Link to="/cart" onClick={() => setMenuOpen(false)}>Cart ({cartCount})</Link>
-          <Link to="/favourites" onClick={() => setMenuOpen(false)}>Favourites</Link>
-          <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+              {label}
+            </NavLink>
+          ))}
         </div>
       )}
+
+      <style>{`
+        @media (max-width: 768px) {
+          .navbar-links { display: none !important; }
+          .mobile-menu-btn { display: block !important; }
+        }
+      `}</style>
     </nav>
   );
 }
-
-const SlideTabs = ({ cartCount }) => {
-  const [position, setPosition] = useState({
-    left: 0,
-    width: 0,
-    opacity: 0,
-  });
-
-  return (
-    <ul
-      className="tabs"
-      onMouseLeave={() => setPosition(prev => ({ ...prev, opacity: 0 }))}
-    >
-      <Tab to="/" setPosition={setPosition}>Home</Tab>
-      <Tab to="/menu" setPosition={setPosition}>Menu</Tab>
-      <Tab to="/cart" setPosition={setPosition}>Cart ({cartCount})</Tab>
-      <Tab to="/favourites" setPosition={setPosition}>Favourites</Tab>
-      <Tab to="/contact" setPosition={setPosition}>Contact</Tab>
-
-      <Cursor position={position} />
-    </ul>
-  );
-};
-
-const Tab = ({ children, setPosition, to }) => {
-  const ref = useRef(null);
-
-  return (
-    <li
-      ref={ref}
-      className="tab-item"
-      onMouseEnter={() => {
-        if (!ref.current) return;
-
-        const { width } = ref.current.getBoundingClientRect();
-
-        setPosition({
-          left: ref.current.offsetLeft,
-          width,
-          opacity: 1,
-        });
-      }}
-    >
-
-
-      <Link to={to} className="tab-link">
-        {children}
-      </Link>
-    </li>
-  );
-};
-
-const Cursor = ({ position }) => {
-  return (
-    <motion.li
-      className="cursor"
-      animate={position}
-      transition={{ type: "spring", stiffness: 350, damping: 25 }}
-    />
-  );
-};
